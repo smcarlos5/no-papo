@@ -1,8 +1,267 @@
-html {
-  background-color: black;
+/*  
+  FONTS: 
+  Oswald semibold 600
+  Archivo regular 400 
+*/
+@import url('https://fonts.googleapis.com/css2?family=Archivo&family=Oswald:wght@600&display=swap');
+
+ /* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-h1 {
-  color: azure;
-  font-size: 5em;
+input {
+  font-size: inherit;
+}
+
+/* VARIABLES */
+:root {
+  /* FONT */
+  --FF-CHAT: 'Archivo', sans-serif;
+  --FF-REGULAR: 'Oswald', sans-serif;
+  --FS-CHAT: 1.1em;
+
+  /* COLORS */
+  --FC-REGULAR: #000;
+  --BG-HEADER: #77bfa3;
+  --BG-PARTICIPANTS-HEADER: #98c9a3;
+  --BG-PARTICIPANTS: #fff;
+  --BG-CHAT-BOARD: #fff;
+  --BG-CHAT-MESSAGE-FIELD: #bfd8bd;
+  --BG-HTML: azure;
+  --BORDER-COLOR:rgba(2, 2, 2, 0.185);
+  --BG-NICKNAME: var(--BG-HEADER);
+  --BG-SEND-BTN: rgba(14, 114, 19, 0.541);
+  --FC-BUTTON: azure;
+  --BG-REGULAR-MESSAGE: rgb(219, 213, 213);
+  --BG-NICKNAME-REGULAR-MESSAGE: rgb(107, 105, 105);
+  --BG-NOTIF-ENTERED: var(--BG-CHAT-MESSAGE-FIELD);
+  --BG-NOTIF-LEFT: var(--BG-REGULAR-MESSAGE);
+  --BG-OWN-MESSAGE: var(--BG-SEND-BTN);
+  
+  /* BORDER */
+  --STD-BORDER: 1px solid var(--BORDER-COLOR);
+  --BORDER-RADIUS: 5px;
+
+  /* PADDING */
+  --STD-PADDING: .5rem;
+  --BTN-PADDING: 1rem;
+
+  /* MARGIN */
+  --PARTICIPANTS-MARGIN: .3rem;
+  --STD-MARGIN: 5px;
+  
+  /* SHADOW */
+  --SHADOW-BODY: 1px 1px 15px 5px var(--BORDER-COLOR);
+  --SHADOW-TEXT: 1px 1px var(--BORDER-COLOR);
+  --BTN-SHADOW: 1px 1px 5px 2px var(--BORDER-COLOR);
+}
+
+/* GENERAL */
+html {
+  background-color: var(--BG-HTML);
+}
+
+body {
+  font-family: var(--FF-REGULAR);
+  font-size: var(--FS-CHAT);
+  margin: 0 auto;
+  min-height: 100vh;
+  max-height: 100vh;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: minmax(60px, auto) minmax(100%, 80vh) minmax(80px, auto);
+  grid-template-areas: 
+    "hd hd hd hd hd"
+    "pl cb cb cb cb"
+    "pl mf mf mf mf";
+  border: var(--STD-BORDER);
+  box-shadow: var(--SHADOW-BODY);
+}
+
+header, section, main {
+  display: flex;
+  justify-content: center;
+  border: var(--STD-BORDER);
+}
+
+.btn {
+  padding: var(--BTN-PADDING);
+  font-weight: bolder;
+  border-radius: var(--BORDER-RADIUS);
+  border: var(--STD-BORDER);
+  box-shadow: var(--BTN-SHADOW);
+}
+
+.btn:hover {
+  filter: saturate(2);
+}
+
+.btn:active {
+  filter: brightness(80%);
+}
+
+/* WELCOME MODAL */
+.wlc-modal {
+  font-size: var(--FS-CHAT);
+  min-width: 100%;
+  min-height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #00000050;
+}
+
+.wlc-modal,
+.wlc-modal__box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wlc-modal__box {
+  width: 400px;
+  height: 250px;
+  background-color: var(--BG-CHAT-BOARD);
+  border-radius: var(--BORDER-RADIUS);
+  border:var(--STD-BORDER);
+  flex-direction: column;
+}
+
+.wlc-modal__nick-input {
+  height: 3rem;
+  width: 70%;
+  margin: var(--STD-MARGIN);
+  padding: var(--STD-PADDING);
+  border-radius: var(--BORDER-RADIUS);
+  text-align: center;
+}
+
+/* HEADER */
+.c-header {
+  grid-area: hd;
+  background-color: var(--BG-HEADER);
+  align-items: center;
+  text-shadow: var(--SHADOW-TEXT);
+}
+
+/* PARTICIPANTS */
+.p-list {
+  grid-area: pl;
+  background-color: var(--BG-PARTICIPANTS);
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.p-list__header {
+  width: 100%;
+  text-align: center;
+  padding: var(--STD-PADDING);
+  background-color: var(--BG-PARTICIPANTS-HEADER);
+  border-bottom: var(--STD-BORDER);
+}
+
+.p-list__list {
+  margin-top: 1rem;
+  list-style: none;
+}
+
+.p-list__nick {
+  margin-bottom: var(--PARTICIPANTS-MARGIN);
+}
+
+/* CHATBOARD */
+.c-board {
+  grid-area: cb;
+  font-family: var(--FF-CHAT);
+  font-size: var(--FS-CHAT);
+  background-color: var(--BG-CHAT-BOARD);
+  display: block;
+  overflow-y: auto;
+}
+
+.c-board__notif, 
+.c-board__notif--entered,
+.c-board__notif--left {
+  background-color: var(--BG-NOTIF);
+  margin: var(--STD-MARGIN);
+  padding: var(--STD-PADDING);
+  text-align: center;
+  border-radius: var(--BORDER-RADIUS);
+  font-style: italic;
+}
+
+.c-board__notif--entered {
+  background-color: var(--BG-NOTIF-ENTERED);
+}
+
+.c-board__notif--left {
+  background-color: var(--BG-NOTIF-LEFT);
+}
+
+.c-board__nick {
+  font-style: normal;
+  font-weight: bold;
+}
+
+.c-board__bubble, 
+.c-board__bubble--own,
+.c-board__bubble--others {
+  padding: var(--STD-PADDING);
+  margin: var(--STD-MARGIN);
+  border-radius: var(--BORDER-RADIUS);
+}
+
+.c-board__bubble--own {
+  background-color: var(--BG-OWN-MESSAGE);
+}
+
+.c-board__bubble--others {
+  background-color: var(--BG-REGULAR-MESSAGE);
+}
+
+.c-board__bubble--own .c-board__nick:after {
+  content: 'You';
+}
+
+.c-board__msg{
+  margin: var(--STD-MARGIN);
+  text-indent: 5px;
+}
+
+.c-board, .msg-field__input, .msg-field__btn {
+  font-family: var(--FF-CHAT);
+  font-size: var(--FS-CHAT);
+}
+
+/* MESSAGE FIELD */
+.msg-field {
+  grid-area: mf;
+  background-color: var(--BG-CHAT-MESSAGE-FIELD);
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.msg-field__nick {
+  padding: var(--STD-PADDING);
+  background-color: var(--BG-NICKNAME);
+  border-radius: var(--BORDER-RADIUS);
+}
+
+.msg-field__input {
+  height: 50%;
+  width: 55%;
+  border-radius: var(--BORDER-RADIUS);
+  padding: var(--STD-PADDING);
+}
+
+.msg-field__btn {
+  background-color: var(--BG-SEND-BTN);
+  color: var(--FC-BUTTON);
+  border: var(--STD-BORDER);
 }
