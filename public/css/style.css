@@ -35,10 +35,10 @@ input {
   --BG-NICKNAME: var(--BG-HEADER);
   --BG-SEND-BTN: rgba(14, 114, 19, 0.541);
   --FC-BUTTON: azure;
-  --BG-REGULAR-MESSAGE: rgb(219, 213, 213);
+  --BG-OTHERS-MESSAGE: rgb(219, 213, 213);
   --BG-NICKNAME-REGULAR-MESSAGE: rgb(107, 105, 105);
   --BG-NOTIF-ENTERED: var(--BG-CHAT-MESSAGE-FIELD);
-  --BG-NOTIF-LEFT: var(--BG-REGULAR-MESSAGE);
+  --BG-NOTIF-LEFT: var(--BG-OTHERS-MESSAGE);
   --BG-OWN-MESSAGE: var(--BG-SEND-BTN);
   
   /* BORDER */
@@ -57,6 +57,11 @@ input {
   --SHADOW-BODY: 1px 1px 15px 5px var(--BORDER-COLOR);
   --SHADOW-TEXT: 1px 1px var(--BORDER-COLOR);
   --BTN-SHADOW: 1px 1px 5px 2px var(--BORDER-COLOR);
+}
+
+/* UTILITIES */
+.hidden {
+  display: none;
 }
 
 /* GENERAL */
@@ -172,6 +177,7 @@ header, section, main {
 
 .p-list__nick {
   margin-bottom: var(--PARTICIPANTS-MARGIN);
+  text-align: center;
 }
 
 /* CHATBOARD */
@@ -180,7 +186,8 @@ header, section, main {
   font-family: var(--FF-CHAT);
   font-size: var(--FS-CHAT);
   background-color: var(--BG-CHAT-BOARD);
-  display: block;
+  flex-flow: column;
+  justify-content: start;
   overflow-y: auto;
 }
 
@@ -214,6 +221,8 @@ header, section, main {
   padding: var(--STD-PADDING);
   margin: var(--STD-MARGIN);
   border-radius: var(--BORDER-RADIUS);
+  animation-name: fadein;
+  animation-duration: 0.5s;
 }
 
 .c-board__bubble--own {
@@ -221,7 +230,7 @@ header, section, main {
 }
 
 .c-board__bubble--others {
-  background-color: var(--BG-REGULAR-MESSAGE);
+  background-color: var(--BG-OTHERS-MESSAGE);
 }
 
 .c-board__bubble--own .c-board__nick:after {
@@ -264,4 +273,10 @@ header, section, main {
   background-color: var(--BG-SEND-BTN);
   color: var(--FC-BUTTON);
   border: var(--STD-BORDER);
+}
+
+/* ANIMATIONS */
+@keyframes fadein {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }

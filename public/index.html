@@ -5,49 +5,28 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
+  <script src="js/main.js"></script>
   <title>NO-PAPO</title>
 </head>
 <body>
   <header class="c-header">
-    <h2 class="header__h3 c-header__title">NO-PAPO <span id="room-name" class="c-header__room">(room 2)</span></h2>
+    <h2 class="header__h3 c-header__title">NO-PAPO <span id="room-name" class="c-header__room"></span></h2>
   </header>
-
-  <section class="wlc-modal">
+  <section id="modal" class="wlc-modal">
     <article class="wlc-modal__box">
       <h2 class="wlc-modal__greet">Welcome</h2>
       <input id="nickname-input" class="wlc-modal__nick-input" type="text" placeholder="Your nickname..." autofocus>
     </article>
   </section>
-
   <section class="p-list">
-    <h3 class="p-list__header">ONLINE <span class="p-number">(22)</span></h3>
+    <h3 class="p-list__header">ONLINE (<span id="online-number"></span>)</h3>
     <ul id="participants-list" class="p-list__list">
-      <li class="p-list__nick">Jake288</li>
-      <li class="p-list__nick">Paulie982</li>
-      <li class="p-list__nick">Tommy11</li>
     </ul>
   </section>
-  
-  <main id="chat-board" class="c-board">
-    <p class="c-board__notif--entered"><span class="c-board__nick">Paulie982</span> has entered the chat.</p>
-    <article class="c-board__bubble--others">
-      <p class="c-board__nick">Paulie982</p>
-      <p class="c-board__msg">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos ab atque exercitationem in inventore aperiam eum tenetur, cum accusantium totam eos vel aspernatur magnam ex ipsa! Est repellendus excepturi quod.</p>
-    </article>
-    <article class="c-board__bubble--own">
-      <p class="c-board__nick"></p>
-      <p class="c-board__msg">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem ipsa vero asperiores libero repellendus, fugiat voluptate temporibus quisquam excepturi delectus iure placeat architecto suscipit dicta sequi consequuntur ducimus porro vitae!
-      Rerum nihil quae accusantium blanditiis ex quod illo excepturi, molestias ipsam magni dolores numquam, eveniet, fugit odit. Ipsam optio tempore laboriosam iusto alias? Alias inventore quidem iste rem consequuntur veritatis.</p>
-    </article>
-    <article class="c-board__bubble--others">
-      <p class="c-board__nick">Paulie982</p>
-      <p class="c-board__msg">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos ab atque exercitationem in inventore aperiam eum tenetur, cum accusantium totam eos vel aspernatur magnam ex ipsa! Est repellendus excepturi quod.</p>
-    </article>
-    <p class="c-board__notif--left"><span class="c-board__nick">Ashley41</span> has left the chat.</p>
-  </main>
-
+  <main id="chat-board" class="c-board"></main>
   <section class="msg-field">
-    <h2 class="msg-field__nick">Jake288</h2>
+    <h2 id="own-nick-display" class="msg-field__nick">Jake288</h2>
     <input id="msg-input" type="text" class="msg-field__input" placeholder="Type your message...">
     <input id="send-btn" type="button" class="msg-field__btn btn" value="SEND">
   </section>
